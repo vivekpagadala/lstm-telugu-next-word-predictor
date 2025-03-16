@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Generator</title>
+</head>
+<body>
+    <h2>Text Generation</h2>
+    <form id="textForm">
+        <label>Enter Seed Text (at least 60 characters):</label><br>
+        <textarea id="seedText" rows="4" cols="50"></textarea><br>
+        <button type="submit">Generate</button>
+    </form>
+    <h3>Generated Text:</h3>
+    <p id="output"></p>
+
+    <script>
+        document.getElementById("textForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            let seedText = document.getElementById("seedText").value;
+
+            fetch('/generate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ seed_text: seedText })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("output").innerText = data.generated_text;
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>

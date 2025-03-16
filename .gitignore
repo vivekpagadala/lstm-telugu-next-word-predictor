@@ -1,0 +1,7 @@
+saved_weights/
+*.h5
+*.log
+__pycache__/
+*.csv
+*.mp4
+lstm/
